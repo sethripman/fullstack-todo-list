@@ -9,7 +9,7 @@ class AddTodo extends Component {
             event.preventDefault();
 
             try {
-                await onAdd(catType);
+                await onAdd(todo);
                 // this only runs if no error:
                 form.reset();
                 document.activeElement.blur();
