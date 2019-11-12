@@ -24,7 +24,10 @@ app.get('/api/todos', async (req, res) => {
 
     try {
         const result = await client.query(`
-            
+            SELECT *
+            FROM types
+            ${where}
+            ORDER BY name;
         `);
 
         res.json(result.rows);
