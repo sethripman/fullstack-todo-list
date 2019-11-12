@@ -99,5 +99,3 @@ app.delete('/api/todos/:id', async (req, res) => {
 app.listen(PORT, () => {
     console.log('server running on PORT', PORT);
 });
-
-var bool_value = value == 'true';
