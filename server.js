@@ -25,9 +25,8 @@ app.get('/api/todos', async (req, res) => {
     try {
         const result = await client.query(`
             SELECT *
-            FROM types
-            ${where}
-            ORDER BY name;
+            FROM todos
+            ORDER BY task;
         `);
 
         res.json(result.rows);
@@ -46,17 +45,26 @@ app.post('/api/todos', async (req, res) => {
 
     try {
         const result = await client.query(`
-            
+            INSERT INTO todos (task)
+            VALUES ($1)
+            RETURNING *;
         `,
-        [/* pass in data */]);
+        [todo.task]);
 
         res.json(result.rows[0]);
     }
     catch (err) {
-        console.log(err);
-        res.status(500).json({
-            error: err.message || err
-        });
+        if (err.code === '23505') {
+            res.status(400).json({
+                error: `Type "${todo.task}" already exists`
+            });
+        }
+        else {
+            console.log(err);
+            res.status(500).json({
+                error: err.message || err
+            });
+        }
     }
 });
 
