@@ -56,7 +56,7 @@ app.post('/api/todos', async (req, res) => {
     catch (err) {
         if (err.code === '23505') {
             res.status(400).json({
-                error: `Type "${todo.task}" already exists`
+                error: `Task "${todo.task}" already exists`
             });
         }
         else {
@@ -86,7 +86,7 @@ app.put('/api/todos/:id', async (req, res) => {
     catch (err) {
         if (err.code === '23505') {
             res.status(400).json({
-                error: `Type "${todo.name}" already exists`
+                error: `Task "${todo.task}" already exists`
             });
         }
         else {
@@ -98,22 +98,29 @@ app.put('/api/todos/:id', async (req, res) => {
 });
 
 app.delete('/api/todos/:id', async (req, res) => {
-    // get the id that was passed in the route:
-    const id = 0; // ???
+    const id = req.params.id;
 
     try {
         const result = await client.query(`
-         
-        `, [/* pass data */]);
+            DELETE FROM todos
+            WHERE  id = $1
+            RETURNING *;
+        `, [id]);
         
         res.json(result.rows[0]);
     }
     catch (err) {
-        console.log(err);
-        res.status(500).json({
-            error: err.message || err
-        });
-    }
+        if (err.code === '23503') {
+            res.status(400).json({
+                error: `Could not remove, todo is in use.`
+            });
+        }
+        else {
+            res.status(500).json({
+                error: err.message || err
+            });
+        }
+    } 
 });
 
 // Start the server
