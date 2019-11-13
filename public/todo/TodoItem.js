@@ -7,7 +7,7 @@ class TodoItem extends Component {
         const onUpdate = this.props.onUpdate;
         const onRemove = this.props.onRemove;
 
-        const completedButton = dom.querySelector('.completed');
+        const completedButton = dom.querySelector('.completed-button');
         completedButton.addEventListener('click', () => {
             todo.complete = !todo.complete;
             onUpdate(todo);
