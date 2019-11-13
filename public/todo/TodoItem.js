@@ -27,7 +27,7 @@ class TodoItem extends Component {
 
         return /*html*/`
             <li class="todo">
-            <span class="${todo.complete ? 'complete' : ''}">${todo.task}</span>
+            <span class="${todo.complete ? 'completed' : ''}">${todo.task}</span>
             <div>
                 <button class="completed-button">
                     Make ${todo.complete ? 'Active' : 'Inactive'}
