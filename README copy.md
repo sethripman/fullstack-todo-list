@@ -58,7 +58,7 @@ Looks like:
 ![todo example](todo.png)
 
 - `TodoApp`
-    - `AddTodo` (props: `onAdd`)
+    - `AddTodoBox` (props: `onAdd`)
     - `TodoList` (props: `todos`, `onUpdate`, STRETCH: `onRemove`)
         - [`TodoItem`] (props: `todo`, `onUpdate`, STRETCH: `onRemove`)
     
