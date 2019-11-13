@@ -7,14 +7,37 @@ class TodoItem extends Component {
         const onUpdate = this.props.onUpdate;
         const onRemove = this.props.onRemove;
 
+        const completedButton = dom.querySelector('.completed');
+        completedButton.addEventListener('click', () => {
+            todo.completed = !todo.completed;
+            onUpdate(todo);
+        });
         
+        const removeButton = dom.querySelector('.remove-button');
+        removeButton.addEventListener('click', () => {
+            const confirmed = confirm(`Are you sure you want to delete "${todo.task}"?`);
+            if (confirmed) {
+                onRemove(todo);
+            }
+        });
     }
 
     renderHTML() {
         const todo = this.props.todo;
 
         return /*html*/`
+            <li class="cat-type">
+            <span class="${type.inactive ? 'inactive' : ''}">${type.name}</span>
+            <div>
+                <button class="inactive-button">
+                    Make ${type.inactive ? 'Active' : 'Inactive'}
+                </button>
             
+                <button class="remove-button">
+                    🗑
+                </button>
+            </div>
+        </li>
         `;
     }
 }
