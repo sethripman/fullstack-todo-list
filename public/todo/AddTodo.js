@@ -1,6 +1,6 @@
 import Component from '../Component.js';
 
-class AddTodo extends Component {
+class AddTodoBox extends Component {
 
     onRender(dom) {
         const onAdd = this.props.onAdd;
@@ -36,4 +36,4 @@ class AddTodo extends Component {
     }
 }
 
-export default AddTodo;
+export default AddTodoBox;
